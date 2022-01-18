@@ -15,7 +15,7 @@ function App() {
 
 
 
-  let [title2, titleChange2] = useState(['남자 코드 추천', '강남 우동 맛집', '피곤하다 집가면 자야지']);//문자, 숫자, array, object 다 가능
+  let [title2, titleChange2] = useState(['남자 코드 추천', '강남 우동 맛집', '피곤하다 집가면 자야지', 'modal 추가']);//문자, 숫자, array, object 다 가능
   console.log('title2>>> ', title2);//state 데이터
   console.log('titleChange2>>>> ', titleChange2);//state 데이터 변경 함수
 
@@ -31,6 +31,7 @@ function App() {
     titleChange2(newArray);
   }
 
+  let [modal, modal변경] = useState(false);
 
   return (
     <div className="App">
@@ -60,16 +61,25 @@ function App() {
         <hr />
       </div>
 
-
-      <div className='modal'>
-        <h2>제목</h2>
-        <p>날짜</p>
-        <p>상세내용</p>
-
+      <div className="list">
+        <h3 onClick={()=>{modal변경(!modal)}}>{title2[3]}</h3>
+        <p>2월 17일 발행</p>
+        <hr />
       </div>
+
+      { modal === true ? <Modal/> : null }
 
     </div>
   );
+}
+
+function Modal(){
+  return(
+    <div className='modal'>
+      <h2>제목</h2>
+      <p>날짜</p>
+    </div>
+  )
 }
 
 export default App;
