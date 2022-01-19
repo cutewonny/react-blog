@@ -24,6 +24,9 @@ function App() {
   let [따봉, 따봉변경] = useState(0);//초기값은 0
   console.log(따봉);//0
   //console.log(따봉변경);//함수
+  let [modal, modal변경] = useState(false);
+  let [누른제목, 누른제목변경] = useState(0);
+  let [입력값, 입력값변경] = useState('');
 
   function 제목바꾸기() {
     var newArray = [...title2];
@@ -32,9 +35,16 @@ function App() {
     titleChange2(newArray);
   }
 
-  let [modal, modal변경] = useState(false);
+  function titleAdded(aa){
+    console.log('전달된 값>>>>>', aa);
+    let addTitle = [...title2];
+    addTitle.push(aa);
+    titleChange2(addTitle);
+  }
 
-  let [누른제목, 누른제목변경] = useState(0);
+//  const titleAdded2 = (n) =>{
+//   titleAdded(n)
+//  }
 
   return (
     <div className="App">
@@ -45,10 +55,10 @@ function App() {
       <button onClick={제목바꾸기}>버튼</button>
 
       {
-        title2.map(function(tit){
+        title2.map(function(tit,i){
           return(
             <div key={tit} className='list' >
-              <h3>{tit}<span onClick={() => { 따봉변경(따봉 + 1) }}>👍</span>{따봉}</h3>
+              <h3 onClick={()=>{누른제목변경(i)}}>{tit}<span onClick={() => { 따봉변경(따봉 + 1) }}>👍</span>{따봉}</h3>
               <p>따봉변경 함수를 쓸 수 있다</p>
               <hr />
             </div>
@@ -60,6 +70,20 @@ function App() {
         <p>2월 17일 발행</p>
         <hr />
       </div>
+
+      <div className="publish">
+        <p>{입력값}</p>
+        <input onChange={(e)=>{입력값변경(e.target.value)}}></input>
+        <button onClick={()=>{titleAdded(입력값)}}>저장</button>
+      </div>
+      
+      <div className="inputArea">
+        <p>{입력값}</p>
+        <input onChange={(e)=>{입력값변경(e.target.value)}}></input>
+      </div>
+      
+      
+      <br></br>
 
       <button onClick={()=>{누른제목변경(0)}}>버튼1</button>
       <button onClick={()=>{누른제목변경(1)}}>버튼2</button>
